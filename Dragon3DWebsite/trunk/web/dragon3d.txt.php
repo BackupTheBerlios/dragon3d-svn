@@ -11,8 +11,11 @@
 		</tr>
 		<tr>
 			<td style="border-bottom:1px solid #cccccc; border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
-			No software releases yet....<br>
-			But you can try build it yourself
+			No software releases yet....<br/>
+			<br/>
+			But you can try build it yourself:<br/>
+			svn checkout svn://svn.berlios.de/dragon3d/Dragon3D/trunk<br/>
+			and ant the build file :-)
 			</td>
 		</tr>
 	</table>
