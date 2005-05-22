@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project name="RendermanXML" default="website" basedir=".">
+    <description>
+        Renderman Interface to XML conversion tool
+    </description>
+	<property name="Website" location="web" />
+	
+	<property name="BerliosUser" value="cyberroadie" />
+	<property name="BerliosPassword" value="pannekoek" />
+
+	<target name="website">
+		<scp todir="${BerliosUser}:${BerliosPassword}@shell.berlios.de:/home/groups/dragon3d/htdocs/" >
+			<fileset dir="${Website}">
+	            <include name="**/*.html"/>
+     			<include name="**/*.php"/>
+				<include name="**/*.css"/>
+				<include name="**/*.png"/>
+			</fileset>
+		</scp>
+	</target>
+</project>
