@@ -11,7 +11,8 @@
 		</tr>
 		<tr>
 			<td style="border-bottom:1px solid #cccccc; border-left:1px solid #cccccc; border-right:1px solid #cccccc;">
-			dragon3d.xml@gmail.com
+			Any questions?<br/>
+			You can contact me by <a href="mailto:dragon3d.xml@gmail.com">email</a>
 			</td>
 		</tr>
 	</table>
