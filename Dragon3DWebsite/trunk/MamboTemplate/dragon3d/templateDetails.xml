@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template">
+        <name>Dragon3D</name>
+        <creationDate>5/6/2005</creationDate>
+        <author>Olivier Van Acker</author>
+        <copyright>GPL</copyright>
+        <authorEmail>cyberroadie@gmail.com</authorEmail>
+        <authorUrl>dragon3d.berlios.de</authorUrl>
+        <version>1.0</version>
+        <description>Dragon3D</description>
+        <files>
+                <filename>index.php</filename>
+                <filename>template_thumbnail.png</filename>
+        </files>
+        <images>
+                <filename>images/dragon3d.png</filename>
+				<filename>images/icondragon3d.png</filename>
+        </images>
+        <css>
+                <filename>css/default.css</filename>
+        </css>
+</mosinstall>
