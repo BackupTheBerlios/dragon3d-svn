@@ -4,10 +4,22 @@
         Renderman Interface to XML conversion tool
     </description>
 	<property name="Website" location="web" />
+	<property name="MamboTemplate" location="MamboTemplate" />
 	
 	<property name="BerliosUser" value="cyberroadie" />
 	<property name="BerliosPassword" value="pannekoek" />
 
+	<target name="mambotemplate">
+		<scp todir="${BerliosUser}:${BerliosPassword}@shell.berlios.de:/home/groups/dragon3d/htdocs/templates/" >
+			<fileset dir="${MamboTemplate}">
+				<include name="**/*.xml"/>
+     			<include name="**/*.php"/>
+				<include name="**/*.css"/>
+				<include name="**/*.png"/>
+			</fileset>
+		</scp>
+	</target>
+	
 	<target name="website">
 		<scp todir="${BerliosUser}:${BerliosPassword}@shell.berlios.de:/home/groups/dragon3d/htdocs/" >
 			<fileset dir="${Website}">
@@ -18,4 +30,14 @@
 			</fileset>
 		</scp>
 	</target>
+	
+	<target name="websitedown">
+		<scp todir="${BerliosUser}:${BerliosPassword}@shell.berlios.de:/home/groups/dragon3d/htdocs/" >
+			<fileset dir="${Website}">
+	            <include name="**/*.html"/>
+				<include name="**/*.png"/>
+			</fileset>
+		</scp>
+	</target>
+
 </project>
