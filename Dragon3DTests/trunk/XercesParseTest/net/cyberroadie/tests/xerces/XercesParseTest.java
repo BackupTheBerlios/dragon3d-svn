@@ -1,6 +1,3 @@
-/**
- * 
- */
 package net.cyberroadie.tests.xerces;
 
 import java.io.FileReader;
@@ -34,17 +31,29 @@ public class XercesParseTest {
             System.exit(1);
         }
         
-        try {
-            new XercesParseTest(args[0]);
-        } catch (IOException ioe) {
-            System.exit(1);
-        }
+        new XercesParseTest(args[0]);
         
 	}
 	
 	public XercesParseTest(String xsdFile) {
 		
-		
+		try {
+			System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMXSImplementationSourceImpl");
+			DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+			XSImplementation xsImpl = (XSImplementation) registry.getDOMImplementation("XS-Loader");
+			XSLoader loader = xsImpl.createXSLoader(null);
+			
+			XSModel model = loader.loadURI(xsdFile);
+			XSNamedMap map = model.getComponents(XSConstants.ELEMENT_DECLARATION);
+			
+			for(int i = 0; i < map.getLength(); i++) {
+				XSObject object = map.item(i);
+				System.out.println(object.toString());
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
 		
 		
 	}
