@@ -1,0 +1,1681 @@
+<schema
+  xmlns='http://www.w3.org/2000/10/XMLSchema'
+  targetNamespace='http://www.w3.org/namespace/'
+  xmlns:t='http://www.w3.org/namespace/'>
+
+ <element name='rib'>
+  <complexType>
+   <choice>
+    <element ref='t:frame'/>
+    <element ref='t:world'/>
+    <element ref='t:format'/>
+    <element ref='t:frameaspectratio'/>
+    <element ref='t:screenwindow'/>
+    <element ref='t:cropwindow'/>
+    <element ref='t:projection'/>
+    <element ref='t:clipping'/>
+    <element ref='t:clippingplane'/>
+    <element ref='t:depthoffield'/>
+    <element ref='t:shutter'/>
+    <element ref='t:pixelvariance'/>
+    <element ref='t:pixelsamples'/>
+    <element ref='t:pixelfilter'/>
+    <element ref='t:exposure'/>
+    <element ref='t:imager'/>
+    <element ref='t:quantize'/>
+    <element ref='t:display'/>
+    <element ref='t:hider'/>
+    <element ref='t:colorsamples'/>
+    <element ref='t:relativedetail'/>
+    <element ref='t:attribute'/>
+    <element ref='t:color'/>
+    <element ref='t:opacity'/>
+    <element ref='t:texturecoordinates'/>
+    <element ref='t:lightsource'/>
+    <element ref='t:arealightsource'/>
+    <element ref='t:illuminate'/>
+    <element ref='t:surface'/>
+    <element ref='t:displacement'/>
+    <element ref='t:atmosphere'/>
+    <element ref='t:interior'/>
+    <element ref='t:exterior'/>
+    <element ref='t:shadingrate'/>
+    <element ref='t:shadinginterpolation'/>
+    <element ref='t:matte'/>
+    <element ref='t:bound'/>
+    <element ref='t:detail'/>
+    <element ref='t:detailrange'/>
+    <element ref='t:geometricapproximation'/>
+    <element ref='t:orientation'/>
+    <element ref='t:reverseorientation'/>
+    <element ref='t:sides'/>
+    <element ref='t:identity'/>
+    <element ref='t:transform'/>
+    <element ref='t:concattransform'/>
+    <element ref='t:perspective'/>
+    <element ref='t:translate'/>
+    <element ref='t:rotate'/>
+    <element ref='t:scale'/>
+    <element ref='t:skew'/>
+    <element ref='t:coordinatesystem'/>
+    <element ref='t:coordsystransform'/>
+    <element ref='t:transformpoints'/>
+    <element ref='t:transform'/>
+    <element ref='t:attribute'/>
+    <element ref='t:polygon'/>
+    <element ref='t:generalpolygon'/>
+    <element ref='t:pointspolygons'/>
+    <element ref='t:pointsgeneralpolygons'/>
+    <element ref='t:basis'/>
+    <element ref='t:patch'/>
+    <element ref='t:patchmesh'/>
+    <element ref='t:nupatch'/>
+    <element ref='t:trimcurve'/>
+    <element ref='t:subdivisionmesh'/>
+    <element ref='t:sphere'/>
+    <element ref='t:cone'/>
+    <element ref='t:cylinder'/>
+    <element ref='t:hyperboloid'/>
+    <element ref='t:paraboloid'/>
+    <element ref='t:disk'/>
+    <element ref='t:torus'/>
+    <element ref='t:points'/>
+    <element ref='t:curves'/>
+    <element ref='t:blobby'/>
+    <element ref='t:procedural'/>
+    <element ref='t:geometry'/>
+    <element ref='t:solid'/>
+    <element ref='t:object'/>
+    <element ref='t:maketexture'/>
+    <element ref='t:makelatlongenvironment'/>
+    <element ref='t:makecubefaceenvironment'/>
+    <element ref='t:makeshadow'/>
+    <element ref='t:archiverecord'/>
+    <element ref='t:readarchive'/>
+   </choice>
+  </complexType>
+ </element>
+
+ <element name='float'>
+  <complexType>
+   <attribute name='name' type='string' use='optional'/>
+   <attribute name='value' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='array'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:row'/>
+   </sequence>
+   <attribute name='xlength' type='string' use='optional'/>
+   <attribute name='ylength' type='string' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='rtmatrix'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:row'/>
+   </sequence>
+   <attribute name='xlength' type='string' use='optional'/>
+   <attribute name='ylength' type='string' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='row'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:col'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='col'>
+  <complexType mixed='true'>
+  </complexType>
+ </element>
+
+ <element name='rtpoint'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='rtbound'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='declare'>
+  <complexType>
+   <attribute name='name' type='string' use='required'/>
+   <attribute name='class' use='optional'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='constant'/>
+      <enumeration value='uniform'/>
+      <enumeration value='varying'/>
+      <enumeration value='vertex'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='type' use='optional'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='float'/>
+      <enumeration value='integer'/>
+      <enumeration value='string'/>
+      <enumeration value='color'/>
+      <enumeration value='point'/>
+      <enumeration value='vector'/>
+      <enumeration value='normal'/>
+      <enumeration value='rtmatrix'/>
+      <enumeration value='hpoint'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='dimension' type='string' use='fixed' value='1'/>
+  </complexType>
+ </element>
+
+ <element name='param'>
+  <complexType>
+   <attribute name='name' type='string' use='required'/>
+   <attribute name='value' type='string' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='frame'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:frame'/>
+    <element ref='t:world'/>
+    <element ref='t:format'/>
+    <element ref='t:frameaspectratio'/>
+    <element ref='t:screenwindow'/>
+    <element ref='t:cropwindow'/>
+    <element ref='t:projection'/>
+    <element ref='t:clipping'/>
+    <element ref='t:clippingplane'/>
+    <element ref='t:depthoffield'/>
+    <element ref='t:shutter'/>
+    <element ref='t:pixelvariance'/>
+    <element ref='t:pixelsamples'/>
+    <element ref='t:pixelfilter'/>
+    <element ref='t:exposure'/>
+    <element ref='t:imager'/>
+    <element ref='t:quantize'/>
+    <element ref='t:display'/>
+    <element ref='t:hider'/>
+    <element ref='t:colorsamples'/>
+    <element ref='t:relativedetail'/>
+    <element ref='t:attribute'/>
+    <element ref='t:color'/>
+    <element ref='t:opacity'/>
+    <element ref='t:texturecoordinates'/>
+    <element ref='t:lightsource'/>
+    <element ref='t:arealightsource'/>
+    <element ref='t:illuminate'/>
+    <element ref='t:surface'/>
+    <element ref='t:displacement'/>
+    <element ref='t:atmosphere'/>
+    <element ref='t:interior'/>
+    <element ref='t:exterior'/>
+    <element ref='t:shadingrate'/>
+    <element ref='t:shadinginterpolation'/>
+    <element ref='t:matte'/>
+    <element ref='t:bound'/>
+    <element ref='t:detail'/>
+    <element ref='t:detailrange'/>
+    <element ref='t:geometricapproximation'/>
+    <element ref='t:orientation'/>
+    <element ref='t:reverseorientation'/>
+    <element ref='t:sides'/>
+    <element ref='t:identity'/>
+    <element ref='t:transform'/>
+    <element ref='t:concattransform'/>
+    <element ref='t:perspective'/>
+    <element ref='t:translate'/>
+    <element ref='t:rotate'/>
+    <element ref='t:scale'/>
+    <element ref='t:skew'/>
+    <element ref='t:coordinatesystem'/>
+    <element ref='t:coordsystransform'/>
+    <element ref='t:transformpoints'/>
+    <element ref='t:transform'/>
+    <element ref='t:attribute'/>
+    <element ref='t:world'/>
+   </choice>
+   <attribute name='nr' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='world'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:polygon'/>
+    <element ref='t:generalpolygon'/>
+    <element ref='t:pointspolygons'/>
+    <element ref='t:pointsgeneralpolygons'/>
+    <element ref='t:basis'/>
+    <element ref='t:patch'/>
+    <element ref='t:patchmesh'/>
+    <element ref='t:nupatch'/>
+    <element ref='t:trimcurve'/>
+    <element ref='t:subdivisionmesh'/>
+    <element ref='t:sphere'/>
+    <element ref='t:cone'/>
+    <element ref='t:cylinder'/>
+    <element ref='t:hyperboloid'/>
+    <element ref='t:paraboloid'/>
+    <element ref='t:disk'/>
+    <element ref='t:torus'/>
+    <element ref='t:points'/>
+    <element ref='t:curves'/>
+    <element ref='t:blobby'/>
+    <element ref='t:procedural'/>
+    <element ref='t:geometry'/>
+    <element ref='t:solid'/>
+    <element ref='t:object'/>
+    <element ref='t:attribute'/>
+    <element ref='t:color'/>
+    <element ref='t:opacity'/>
+    <element ref='t:texturecoordinates'/>
+    <element ref='t:lightsource'/>
+    <element ref='t:arealightsource'/>
+    <element ref='t:illuminate'/>
+    <element ref='t:surface'/>
+    <element ref='t:displacement'/>
+    <element ref='t:atmosphere'/>
+    <element ref='t:interior'/>
+    <element ref='t:exterior'/>
+    <element ref='t:shadingrate'/>
+    <element ref='t:shadinginterpolation'/>
+    <element ref='t:matte'/>
+    <element ref='t:bound'/>
+    <element ref='t:detail'/>
+    <element ref='t:detailrange'/>
+    <element ref='t:geometricapproximation'/>
+    <element ref='t:orientation'/>
+    <element ref='t:reverseorientation'/>
+    <element ref='t:sides'/>
+    <element ref='t:identity'/>
+    <element ref='t:transform'/>
+    <element ref='t:concattransform'/>
+    <element ref='t:perspective'/>
+    <element ref='t:translate'/>
+    <element ref='t:rotate'/>
+    <element ref='t:scale'/>
+    <element ref='t:skew'/>
+    <element ref='t:coordinatesystem'/>
+    <element ref='t:coordsystransform'/>
+    <element ref='t:transformpoints'/>
+    <element ref='t:transform'/>
+    <element ref='t:motion'/>
+    <element ref='t:maketexture'/>
+    <element ref='t:makelatlongenvironment'/>
+    <element ref='t:makecubefaceenvironment'/>
+    <element ref='t:makeshadow'/>
+    <element ref='t:archiverecord'/>
+    <element ref='t:readarchive'/>
+   </choice>
+  </complexType>
+ </element>
+
+ <element name='format'>
+  <complexType>
+   <attribute name='xresolution' type='string' use='required'/>
+   <attribute name='yresolution' type='string' use='required'/>
+   <attribute name='pixelaspectratio' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='frameaspectratio'>
+  <complexType/>
+ </element>
+
+ <element name='screenwindow'>
+  <complexType>
+   <attribute name='left' type='string' use='required'/>
+   <attribute name='right' type='string' use='required'/>
+   <attribute name='bottom' type='string' use='required'/>
+   <attribute name='top' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='cropwindow'>
+  <complexType>
+   <attribute name='xmin' type='string' use='required'/>
+   <attribute name='xmax' type='string' use='required'/>
+   <attribute name='ymin' type='string' use='required'/>
+   <attribute name='ymax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='projection'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='name' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='perspective'/>
+      <enumeration value='orthographic'/>
+      <enumeration value='null'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='clipping'>
+  <complexType>
+   <attribute name='near' type='string' use='required'/>
+   <attribute name='far' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='clippingplane'>
+  <complexType>
+   <attribute name='x' type='string' use='required'/>
+   <attribute name='y' type='string' use='required'/>
+   <attribute name='z' type='string' use='required'/>
+   <attribute name='nx' type='string' use='required'/>
+   <attribute name='ny' type='string' use='required'/>
+   <attribute name='nz' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='depthoffield'>
+  <complexType>
+   <attribute name='fstop' type='string' use='required'/>
+   <attribute name='focallength' type='string' use='required'/>
+   <attribute name='focaldistance' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='shutter'>
+  <complexType>
+   <attribute name='min' type='string' use='required'/>
+   <attribute name='max' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='pixelvariance'>
+  <complexType>
+   <attribute name='variation' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='pixelsamples'>
+  <complexType>
+   <attribute name='xsamples' type='string' use='required'/>
+   <attribute name='ysamples' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='pixelfilter'>
+  <complexType>
+   <attribute name='filterfunc' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='box'/>
+      <enumeration value='triangle'/>
+      <enumeration value='catmullrom'/>
+      <enumeration value='guassian'/>
+      <enumeration value='sinc'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='xwidth' type='string' use='required'/>
+   <attribute name='ywidth' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='exposure'>
+  <complexType>
+   <attribute name='gain' type='string' use='required'/>
+   <attribute name='gamma' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='imager'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='name' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='CDATA'/>
+      <enumeration value='null'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='quantize'>
+  <complexType>
+   <attribute name='type' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='rgba'/>
+      <enumeration value='z'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='one' type='string' use='required'/>
+   <attribute name='min' type='string' use='required'/>
+   <attribute name='max' type='string' use='required'/>
+   <attribute name='ditheramplitude' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='display'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='name' type='string' use='required'/>
+   <attribute name='type' type='string' use='required'/>
+   <attribute name='mode' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='hider'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='type' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='hidden'/>
+      <enumeration value='null'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='colorsamples'>
+  <complexType>
+   <choice>
+    <element ref='t:nrgb'/>
+    <element ref='t:rgbn'/>
+   </choice>
+   <attribute name='n' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='nrgb'>
+  <complexType>
+   <attribute name='n0' type='string' use='required'/>
+   <attribute name='n1' type='string' use='required'/>
+   <attribute name='n2' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='rgbn'>
+  <complexType>
+   <attribute name='n0' type='string' use='required'/>
+   <attribute name='n1' type='string' use='required'/>
+   <attribute name='n2' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='relativedetail'>
+  <complexType>
+   <attribute name='relativedetail' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='option'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='name' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='attributestack'>
+  <complexType>
+   <choice>
+    <element ref='t:attribute'/>
+    <element ref='t:color'/>
+    <element ref='t:opacity'/>
+    <element ref='t:texturecoordinates'/>
+    <element ref='t:lightsource'/>
+    <element ref='t:arealightsource'/>
+    <element ref='t:illuminate'/>
+    <element ref='t:surface'/>
+    <element ref='t:displacement'/>
+    <element ref='t:atmosphere'/>
+    <element ref='t:interior'/>
+    <element ref='t:exterior'/>
+    <element ref='t:shadingrate'/>
+    <element ref='t:shadinginterpolation'/>
+    <element ref='t:matte'/>
+    <element ref='t:bound'/>
+    <element ref='t:detail'/>
+    <element ref='t:detailrange'/>
+    <element ref='t:geometricapproximation'/>
+    <element ref='t:orientation'/>
+    <element ref='t:reverseorientation'/>
+    <element ref='t:sides'/>
+   </choice>
+  </complexType>
+ </element>
+
+ <element name='color'>
+  <complexType>
+   <attribute name='r' type='string' use='required'/>
+   <attribute name='g' type='string' use='required'/>
+   <attribute name='b' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='opacity'>
+  <complexType>
+   <attribute name='r' type='string' use='required'/>
+   <attribute name='g' type='string' use='required'/>
+   <attribute name='b' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='texturecoordinates'>
+  <complexType>
+   <attribute name='s1' type='string' use='required'/>
+   <attribute name='t1' type='string' use='required'/>
+   <attribute name='s2' type='string' use='required'/>
+   <attribute name='t2' type='string' use='required'/>
+   <attribute name='s3' type='string' use='required'/>
+   <attribute name='t3' type='string' use='required'/>
+   <attribute name='s4' type='string' use='required'/>
+   <attribute name='t4' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='lightsource'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='shadername' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='ambient'/>
+      <enumeration value='distant'/>
+      <enumeration value='point'/>
+      <enumeration value='spot'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='arealightsource'>
+  <complexType>
+   <attribute name='shadername' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='ambient'/>
+      <enumeration value='distant'/>
+      <enumeration value='point'/>
+      <enumeration value='spot'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='illuminate'>
+  <complexType>
+   <attribute name='light' type='string' use='required'/>
+   <attribute name='state' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='true'/>
+      <enumeration value='false'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='surface'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='shadername' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='displacement'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='shaderename' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='atmosphere'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='shadername' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='interior'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='shadername' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='depthcue'/>
+      <enumeration value='fog'/>
+      <enumeration value='CDATA'/>
+      <enumeration value='null'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='exterior'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='shadername' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='depthcue'/>
+      <enumeration value='fog'/>
+      <enumeration value='CDATA'/>
+      <enumeration value='null'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='shadingrate'>
+  <complexType>
+   <attribute name='size' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='CDATA'/>
+      <enumeration value='infinity'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='shadinginterpolation'>
+  <complexType>
+   <attribute name='type' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='constant'/>
+      <enumeration value='smooth'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='matte'>
+  <complexType>
+   <attribute name='state' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='true'/>
+      <enumeration value='false'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='bound'>
+  <complexType>
+   <sequence>
+    <element ref='t:rtbound'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='detail'>
+  <complexType>
+   <sequence>
+    <element ref='t:rtbound'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='detailrange'>
+  <complexType>
+   <attribute name='minvisible' type='string' use='required'/>
+   <attribute name='lowertransition' type='string' use='required'/>
+   <attribute name='uppertransition' type='string' use='required'/>
+   <attribute name='maxvisible' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='geometricapproximation'>
+  <complexType>
+   <attribute name='type' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='flatness'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='value' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='orientation'>
+  <complexType>
+   <attribute name='orientation' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='outside'/>
+      <enumeration value='inside'/>
+      <enumeration value='lh'/>
+      <enumeration value='rh'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='reverseorientation'>
+  <complexType/>
+ </element>
+
+ <element name='sides'>
+  <complexType>
+   <attribute name='sides' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='identity'>
+  <complexType/>
+ </element>
+
+ <element name='transform'>
+  <complexType>
+   <sequence>
+    <element ref='t:rtmatrix'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='concattransform'>
+  <complexType>
+   <sequence>
+    <element ref='t:rtmatrix'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='perspective'>
+  <complexType>
+   <attribute name='fov' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='translate'>
+  <complexType>
+   <attribute name='dx' type='string' use='required'/>
+   <attribute name='dy' type='string' use='required'/>
+   <attribute name='dz' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='rotate'>
+  <complexType>
+   <attribute name='angle' type='string' use='required'/>
+   <attribute name='dx' type='string' use='required'/>
+   <attribute name='dy' type='string' use='required'/>
+   <attribute name='dz' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='scale'>
+  <complexType>
+   <attribute name='sx' type='string' use='required'/>
+   <attribute name='sy' type='string' use='required'/>
+   <attribute name='sz' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='skew'>
+  <complexType>
+   <attribute name='angle' type='string' use='required'/>
+   <attribute name='dx1' type='string' use='required'/>
+   <attribute name='dy1' type='string' use='required'/>
+   <attribute name='dz1' type='string' use='required'/>
+   <attribute name='dx2' type='string' use='required'/>
+   <attribute name='dy2' type='string' use='required'/>
+   <attribute name='dz2' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='coordinatesystem'>
+  <complexType>
+   <attribute name='name' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='ratser'/>
+      <enumeration value='NDC'/>
+      <enumeration value='screen'/>
+      <enumeration value='camera'/>
+      <enumeration value='world'/>
+      <enumeration value='object'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='coordsystransform'>
+  <complexType>
+   <attribute name='name' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='ratser'/>
+      <enumeration value='NDC'/>
+      <enumeration value='screen'/>
+      <enumeration value='camera'/>
+      <enumeration value='world'/>
+      <enumeration value='object'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='transformpoints'>
+  <complexType>
+   <sequence>
+    <element ref='t:rtpoint'/>
+   </sequence>
+   <attribute name='fromspace' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='ratser'/>
+      <enumeration value='NDC'/>
+      <enumeration value='screen'/>
+      <enumeration value='camera'/>
+      <enumeration value='world'/>
+      <enumeration value='object'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='tospace' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='ratser'/>
+      <enumeration value='NDC'/>
+      <enumeration value='screen'/>
+      <enumeration value='camera'/>
+      <enumeration value='world'/>
+      <enumeration value='object'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='n' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='transformationstack'>
+  <complexType/>
+ </element>
+
+ <element name='attribute'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='name' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='displacementbound'/>
+      <enumeration value='identifier'/>
+      <enumeration value='trimcurve'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='p'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='pz'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='pw'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='n'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='cs'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='os'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='tc'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:float'/>
+   </sequence>
+  </complexType>
+ </element>
+
+ <element name='nvertices'>
+  <complexType>
+   <attribute name='number' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='nloops'>
+  <complexType>
+   <attribute name='number' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='polygon'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='nvertices' type='string' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='generalpolygon'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:nloops'/>
+    <element ref='t:nvertices'/>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+  </complexType>
+ </element>
+
+ <element name='pointspolygons'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:nvertices'/>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='npolys' type='string' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='pointsgeneralpolygons'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:nloops'/>
+    <element ref='t:nvertices'/>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='npolys' type='string' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='basis'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:rtmatrix'/>
+   </sequence>
+   <attribute name='ubasis' use='optional'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='bezier'/>
+      <enumeration value='bspline'/>
+      <enumeration value='catmullrom'/>
+      <enumeration value='hermite'/>
+      <enumeration value='power'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='ustep' type='string' use='required'/>
+   <attribute name='vbasis' use='optional'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='bezier'/>
+      <enumeration value='bspline'/>
+      <enumeration value='catmullrom'/>
+      <enumeration value='hermite'/>
+      <enumeration value='power'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='vstep' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='patch'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='type' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='bilinear'/>
+      <enumeration value='bicubic'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='patchmesh'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='type' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='bilinear'/>
+      <enumeration value='bicubic'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='nu' type='string' use='required'/>
+   <attribute name='uwrap' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='periodic'/>
+      <enumeration value='nonperiodic'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='nv' type='string' use='required'/>
+   <attribute name='vwrap' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='periodic'/>
+      <enumeration value='nonperiodic'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='nupatch'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:array'/>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='nu' type='string' use='required'/>
+   <attribute name='uorder' type='string' use='required'/>
+   <attribute name='umin' type='string' use='required'/>
+   <attribute name='umax' type='string' use='required'/>
+   <attribute name='nv' type='string' use='required'/>
+   <attribute name='vorder' type='string' use='required'/>
+   <attribute name='vmin' type='string' use='required'/>
+   <attribute name='vmax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='trimcurve'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:array'/>
+   </sequence>
+   <attribute name='nloops' type='string' use='required'/>
+   <attribute name='min' type='string' use='required'/>
+   <attribute name='max' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='subdivisionmesh'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:array'/>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='scheme' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='catmull-clark'/>
+      <enumeration value='CDATA'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='nfaces' type='string' use='required'/>
+   <attribute name='ntags' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='sphere'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='radius' type='string' use='required'/>
+   <attribute name='zmin' type='string' use='required'/>
+   <attribute name='zmax' type='string' use='required'/>
+   <attribute name='thetamax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='cone'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='height' type='string' use='required'/>
+   <attribute name='radius' type='string' use='required'/>
+   <attribute name='thetamax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='cylinder'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='radius' type='string' use='required'/>
+   <attribute name='zmin' type='string' use='required'/>
+   <attribute name='zmax' type='string' use='required'/>
+   <attribute name='thetamax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='hyperboloid'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:rtpoint'/>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+  </complexType>
+ </element>
+
+ <element name='paraboloid'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='rmax' type='string' use='required'/>
+   <attribute name='zmin' type='string' use='required'/>
+   <attribute name='zmax' type='string' use='required'/>
+   <attribute name='thetamax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='disk'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='height' type='string' use='required'/>
+   <attribute name='radius' type='string' use='required'/>
+   <attribute name='thetamax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='torus'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='majorradius' type='string' use='required'/>
+   <attribute name='minorradius' type='string' use='required'/>
+   <attribute name='phiminus' type='string' use='required'/>
+   <attribute name='phimax' type='string' use='required'/>
+   <attribute name='thetamax' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='points'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='npoints' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='curves'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:array'/>
+    <element ref='t:p'/>
+    <element ref='t:pz'/>
+    <element ref='t:pw'/>
+    <element ref='t:n'/>
+    <element ref='t:cs'/>
+    <element ref='t:os'/>
+    <element ref='t:tc'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='type' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='linear'/>
+      <enumeration value='cubic'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='ncurves' type='string' use='required'/>
+   <attribute name='wrap' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='periodic'/>
+      <enumeration value='nonperiodic'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='blobby'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:array'/>
+    <element ref='t:param'/>
+   </choice>
+   <attribute name='nleaf' type='string' use='required'/>
+   <attribute name='ncode' type='string' use='required'/>
+   <attribute name='nfloats' type='string' use='required'/>
+   <attribute name='nstrings' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='procedural'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:rtbound'/>
+   </sequence>
+   <attribute name='procname' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='delayedreadarchive'/>
+      <enumeration value='runprogram'/>
+      <enumeration value='dynamicload'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='filename' type='string' use='optional'/>
+   <attribute name='programname' type='string' use='optional'/>
+   <attribute name='datablock' type='string' use='optional'/>
+   <attribute name='dsoname' type='string' use='optional'/>
+   <attribute name='paramdata' type='string' use='optional'/>
+  </complexType>
+ </element>
+
+ <element name='geometry'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='name' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='solid'>
+  <complexType>
+   <attribute name='operation' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='primitive'/>
+      <enumeration value='intersection'/>
+      <enumeration value='union'/>
+      <enumeration value='difference'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='object'>
+  <complexType>
+   <attribute name='sequencenumber' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='motion'>
+  <complexType>
+   <choice minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:polygon'/>
+    <element ref='t:generalpolygon'/>
+    <element ref='t:pointspolygons'/>
+    <element ref='t:pointsgeneralpolygons'/>
+    <element ref='t:basis'/>
+    <element ref='t:patch'/>
+    <element ref='t:patchmesh'/>
+    <element ref='t:nupatch'/>
+    <element ref='t:trimcurve'/>
+    <element ref='t:subdivisionmesh'/>
+    <element ref='t:sphere'/>
+    <element ref='t:cone'/>
+    <element ref='t:cylinder'/>
+    <element ref='t:hyperboloid'/>
+    <element ref='t:paraboloid'/>
+    <element ref='t:disk'/>
+    <element ref='t:torus'/>
+    <element ref='t:points'/>
+    <element ref='t:curves'/>
+    <element ref='t:blobby'/>
+    <element ref='t:procedural'/>
+    <element ref='t:geometry'/>
+    <element ref='t:solid'/>
+    <element ref='t:object'/>
+    <element ref='t:array'/>
+   </choice>
+   <attribute name='n' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='maketexture'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='picturename' type='string' use='required'/>
+   <attribute name='texturename' type='string' use='required'/>
+   <attribute name='swrap' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='black'/>
+      <enumeration value='periodic'/>
+      <enumeration value='clamp'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='twrap' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='black'/>
+      <enumeration value='periodic'/>
+      <enumeration value='clamp'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='filter' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='box'/>
+      <enumeration value='triangle'/>
+      <enumeration value='catmull-rom'/>
+      <enumeration value='b-spline'/>
+      <enumeration value='gaussian'/>
+      <enumeration value='sinc'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='swidth' type='string' use='required'/>
+   <attribute name='twidth' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='makelatlongenvironment'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='picturename' type='string' use='required'/>
+   <attribute name='texturename' type='string' use='required'/>
+   <attribute name='filter' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='box'/>
+      <enumeration value='triangle'/>
+      <enumeration value='catmull-rom'/>
+      <enumeration value='b-spline'/>
+      <enumeration value='gaussian'/>
+      <enumeration value='sinc'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='swidth' type='string' use='required'/>
+   <attribute name='twidth' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='makecubefaceenvironment'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='px' type='string' use='required'/>
+   <attribute name='nx' type='string' use='required'/>
+   <attribute name='py' type='string' use='required'/>
+   <attribute name='ny' type='string' use='required'/>
+   <attribute name='pz' type='string' use='required'/>
+   <attribute name='nz' type='string' use='required'/>
+   <attribute name='texturename' type='string' use='required'/>
+   <attribute name='fov' type='string' use='required'/>
+   <attribute name='filter' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='box'/>
+      <enumeration value='triangle'/>
+      <enumeration value='catmull-rom'/>
+      <enumeration value='b-spline'/>
+      <enumeration value='gaussian'/>
+      <enumeration value='sinc'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+   <attribute name='swidth' type='string' use='required'/>
+   <attribute name='twidth' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='makeshadow'>
+  <complexType>
+   <sequence minOccurs='0' maxOccurs='unbounded'>
+    <element ref='t:param'/>
+   </sequence>
+   <attribute name='picturename' type='string' use='required'/>
+   <attribute name='texturename' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='errorhandler'>
+  <complexType>
+   <attribute name='action' use='required'>
+    <simpleType>
+     <restriction base='string'>
+      <enumeration value='ignore'/>
+      <enumeration value='print'/>
+      <enumeration value='abort'/>
+     </restriction>
+    </simpleType>
+   </attribute>
+  </complexType>
+ </element>
+
+ <element name='archiverecord'>
+  <complexType>
+   <attribute name='filename' type='string' use='required'/>
+  </complexType>
+ </element>
+
+ <element name='readarchive'>
+  <complexType>
+   <attribute name='filename' type='string' use='required'/>
+  </complexType>
+ </element>
+</schema>
