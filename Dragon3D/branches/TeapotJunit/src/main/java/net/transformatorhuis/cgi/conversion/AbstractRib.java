@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Vector;
 
+import net.transformatorhuis.xsd.ObjectFactory;
+
 /**
  * @author Olivier VAn Acker
  *
@@ -22,12 +24,17 @@ public abstract class AbstractRib {
      */
     private static Logger logger = Logger.getLogger(AbstractRib.class);
 
-    // This pattern is not perfect.
+    /* TODO: Improve this pattern.*/
     /**
      * Regular expression pattern.
      */
     private Pattern p = Pattern
             .compile("\"[\\w\\s.]*\"|\\[[\\p{Graph}\\p{Blank}]*\\]|[\\d\\p{Punct}]*'");
+
+    /*
+     * JAXB object factory for RIB elements  
+     */
+    protected static ObjectFactory objFactory = new ObjectFactory();
 
     /**
      * Paramters.
@@ -142,4 +149,11 @@ public abstract class AbstractRib {
     public void setParam(String param) {
         this.param = param;
     }
+
+    /**
+     * Abstract method to return
+     * @return JAXB node returned for RIB element
+     */
+     abstract public Object getJAXBNode();
+
 }
