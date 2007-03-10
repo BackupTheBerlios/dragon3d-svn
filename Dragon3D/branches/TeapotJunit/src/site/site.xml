@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Maven">
+    <bannerLeft>
+        <name>Dragon3D</name>
+        <src>http://dragon3d.berlios.de/images/dragon3d.png</src>
+        <href>http://dragon3d.berlios.de/</href>
+    </bannerLeft>
+    <bannerRight>
+        <src>http://dragon3d.berlios.de/images/logodragon3d.png</src>
+    </bannerRight>
+    <body>
+        
+        <menu name="Dragon3D">
+            <item name="Introduction" href="index.html"/>
+            <item name="Project" href="http://developer.berlios.de/projects/dragon3d/" />
+            <item name="Version Control" href="http://svn.berlios.de/wsvn/dragon3d" />
+            <item name="Wiki" href="http://dragon3d.berlios.de/mediawiki/index.php/Main_Page" />
+            <item name="Blog" href="http://dragon3d.blogspot.com/"/>
+        </menu>
+        
+        ${reports}
+        
+    </body>
+</project>

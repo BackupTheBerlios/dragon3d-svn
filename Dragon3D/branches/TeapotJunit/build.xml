@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<project name="RendermanXML" default="dist" basedir=".">
+    <description>
+        Renderman Interface to XML conversion tool
+    </description>
+    
+	<!-- Local properties -->
+	<property file="build.properties"/>
+	
+	<!-- Directories -->
+    <property name="Source" location="src" />
+    <property name="Library" location="lib" />
+    <property name="Build" location="bin" />
+    <property name="Distribution" location="dist" />
+    <property name="Configuration" location="conf" />
+	<property name="schema.dir" location="schemas"/>
+
+    <property name="RibConfigFile" value="RibElements.xml" />
+    <property name="LogConfigFile" value="log4j.xml" />
+    
+	<!-- Proxy -->
+	<property name="proxy.server" value="www-cache.reith.bbc.co.uk" />
+	<property name="proxy.port" value="80"/>
+	<property name="proxy.local" value="*.wc.bbc.co.uk|*.national.core.bbc.co.uk"/>
+
+	<!-- Archive server -->
+	<property name="archive.server.ibiblio" value="http://www.ibiblio.org" />
+	<property name="archive.server.bbc.conger" value="http://luggage.wc.bbc.co.uk/" />
+	    
+	<property name="lib.dir" location="lib" />
+	
+	<import file="build-jaxb.xml" />
+	<import file="build-dependencies.xml" />
+	
+	<path id="classpath" >
+        <pathelement location="${build.dir}" />
+        <fileset dir="${lib.dir}" />
+		<fileset dir="${javaee.home}" includes="lib/javaee.jar" /> 
+        <fileset dir="${javaee.home}" includes="lib/appserv-rt.jar" />
+        <fileset dir="${javaee.home}" includes="lib/appserv-ws.jar" />
+	</path>
+	
+    <target name="init">
+        <tstamp />
+        <mkdir dir="${Build}" />
+        <mkdir dir="${Distribution}" />
+    </target>
+	
+	<target name="set-proxy" >
+	        <setproxy proxyhost="${proxy.server}	" proxyport="${proxy.port}" 
+	            nonproxyhosts="${proxy.local}" />        
+	</target>
+    
+	<target name="compile" depends="init" description="Compile sources">
+        <mkdir dir="${Build}" />
+        
+        <!-- For now log4j is included in the ribxml.jar             -->
+        <!-- Future releases will keep jar files seperate, depending -->
+        <!-- on how to include this for different OS distributions   -->
+        <!-- unjar here because it's needed for correct compile      -->
+        <unjar src="${Library}/log4j.jar" dest="${Build}" />
+        <javac srcdir="${Source}" destdir="${Build}" debug="on" deprecation="on">
+            <classpath>
+                <pathelement path="${classpath}" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/conversion" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements/external" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements/graphicsstate" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements/graphicsstate/attributes" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements/graphicsstate/options" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements/graphicsste/transformations" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements/motion" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/elements/primitives" />
+                <pathelement path="${Source}/net/transformatorhuis/cgi/types" />
+                <pathelement path="${Library}/log4j-1.2.8.jar" />
+            </classpath>
+        </javac>
+    </target>
+    
+    <target name="config" depends="compile" description="Creates configuration file">
+        <echo message="Creating configuration file" />
+        <mkdir dir="${Build}/${Configuration}" />
+        <!-- Config generator has to read to newest log4j.xml -->
+        <copy file="${Configuration}/${LogConfigFile}" todir="${Build}/conf" />
+        <!-- TODO Make java ant task work -->
+    		<java classpath="${Build}" dir="${Build}" classname="net.transformatorhuis.cgi.utils.ConfigGenerator" fork="true" >
+    		  <arg value="${Configuration}/${RibConfigFile}" />
+    		  <arg value="net/transformatorhuis/cgi/elements" />
+  		</java>
+        <copy file="${Configuration}/${RibConfigFile}" todir="${Build}/conf" />
+    </target>
+   
+    <target name="dist" depends="config" description="Creates distribution" >
+        <mkdir dir="${Distribution}/lib" />        
+        <jar destfile="${Distribution}/lib/ribxml.jar" basedir="${Build}" >
+            <manifest>
+                <attribute name="Built-By" value="Olivier Van Acker" />
+                <attribute name="Main-Class" value="net.transformatorhuis.cgi.conversion.Rib2Xml" />
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="clean" description="Deletes all compiled and distribution files">
+        <delete dir="${Build}" />
+        <delete dir="${Distribution}" />
+    </target>
+
+    <target name="javadoc">
+        <javadoc destdir="/var/www/localhost/htdocs/docs/Dragon3D" 
+        	     
+        	     packagenames="net.transformatorhuis.cgi.elements.graphicsstate.transformations,net.transformatorhuis.cgi.elements.primitives,net.transformatorhuis.cgi.elements.graphicsstate.attributes,net.transformatorhuis.cgi.elements,net.transformatorhuis.cgi.utils,net.transformatorhuis.cgi.types,net.transformatorhuis.cgi.elements.motion,net.transformatorhuis.cgi.elements.external,net.transformatorhuis.cgi.conversion,net.transformatorhuis.cgi.elements.graphicsstate.options,net.transformatorhuis.cgi.elements.graphicsstate,net.transformatorhuis.xsd" 
+        	     sourcepath="${Source}" 
+        	     classpath="build:${javaee.home}lib/javaee.jar:lib/log4j.jar:/usr/lib/eclipse-3/plugins/org.junit_3.8.1/junit.jar:${Library}" 
+        	     doctitle="Dragon3D"/>
+    </target>
+
+	<target name="schemaupload">
+			<!-- Key based authentication required -->
+			<scp todir="cyberroadie@shell.berlios.de:/home/groups/dragon3d/htdocs/rib/" 
+				 trust="yes" 
+				 keyfile="${user.home}/.ssh/id_rsa" 
+				 passphrase="">
+				<fileset dir="${schema.dir}">
+					<include name="**/*.xsd"/>
+				</fileset>
+			</scp>
+	</target>
+	    
+</project>
