@@ -103,15 +103,8 @@ public class GeneralRibTest {
         // will be compatible with doc
         Node node = ribDoc.importNode(d.getDocumentElement(), true);
 
-        // Create the document fragment node to hold the new nodes
-        DocumentFragment docfrag = ribDoc.createDocumentFragment();
-
-        // Move the nodes into the fragment
-        while (node.hasChildNodes()) {
-            docfrag.appendChild(node.removeChild(node.getFirstChild()));
-        }
-
-        root.appendChild(docfrag);
+        root.appendChild(node);
+        ribDoc.appendChild(root);
 
         return ribDoc;
     }
@@ -126,11 +119,14 @@ public class GeneralRibTest {
 
     public boolean compareDocuments(Document docLeft, Document docRight) {
 
-        NodeList leftNodes = docLeft.getChildNodes();
-        NodeList rightNodes = docRight.getChildNodes();
+        Node leftRibNode = docLeft.getFirstChild();
+        Node rightRibNode = docRight.getFirstChild();
 
-        Node leftNode = leftNodes.item(1);
-        Node rightNode = rightNodes.item(1);
+        Node leftNode = leftRibNode.getFirstChild();
+        logger.debug("Left node: " + leftNode.getNodeName());
+
+        Node rightNode = rightRibNode.getFirstChild();
+        logger.debug("Right node: " + rightNode.getNodeName());
 
         return leftNode.isSameNode(rightNode);
         
