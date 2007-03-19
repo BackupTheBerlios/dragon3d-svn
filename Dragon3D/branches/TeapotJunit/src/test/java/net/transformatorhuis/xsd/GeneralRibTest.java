@@ -92,7 +92,7 @@ public class GeneralRibTest {
         DocumentBuilder docBuilder = docBuilderFac.newDocumentBuilder();
         ribDoc = docBuilder.newDocument();
 
-        root = ribDoc.createElement("rib");
+        root = ribDoc.createElementNS("http://dragon3d.berlios.de/rib/", "rib");
         root.setAttribute("version", "3.03");
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -103,7 +103,20 @@ public class GeneralRibTest {
         // will be compatible with doc
         Node node = ribDoc.importNode(d.getDocumentElement(), true);
 
-        root.appendChild(node);
+        // Work around to add namespace URI
+        NamedNodeMap nl = node.getAttributes();
+
+        // Create element with same name
+        Element nsElement = ribDoc.createElementNS("http://dragon3d.berlios.de/rib/", node.getNodeName());
+
+        // Copy all attributes
+        for(int i = 0; i < nl.getLength() ; i++)   {
+            Attr attr = (Attr) nl.item(i);
+            nsElement.setAttributeNS(null, attr.getName(), attr.getValue());
+            //nsElement.setAttribute(attr.getName(), attr.getValue());
+        }
+
+        root.appendChild(nsElement);
         ribDoc.appendChild(root);
 
         return ribDoc;
@@ -117,8 +130,18 @@ public class GeneralRibTest {
         m.marshal(rib, System.out);
     }
 
+    /**
+     * Only compares the child nodes of <rib>
+     * @param docLeft
+     * @param docRight
+     * @return
+     */
     public boolean compareDocuments(Document docLeft, Document docRight) {
 
+        // normalization can affect equality
+        docLeft.normalizeDocument();
+        docRight.normalizeDocument();
+        
         Node leftRibNode = docLeft.getFirstChild();
         Node rightRibNode = docRight.getFirstChild();
 
@@ -128,7 +151,11 @@ public class GeneralRibTest {
         Node rightNode = rightRibNode.getFirstChild();
         logger.debug("Right node: " + rightNode.getNodeName());
 
-        return leftNode.isSameNode(rightNode);
+        // normalization can affect equality
+        leftNode.normalize();
+        rightNode.normalize();
+        
+        return leftNode.isEqualNode(rightNode);
         
     }
 }
