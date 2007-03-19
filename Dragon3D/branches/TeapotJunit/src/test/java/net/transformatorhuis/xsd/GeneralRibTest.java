@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -21,11 +23,7 @@ import java.io.StringReader;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
  * User: cyberroadie
- * Date: Feb 15, 2007
- * Time: 12:00:00 AM
- * To change this template use File | Settings | File Templates.
  */
 public class GeneralRibTest {
 
@@ -42,6 +40,8 @@ public class GeneralRibTest {
 
     private List ribList;
 
+    private static Logger logger = Logger.getLogger(GeneralRibTest.class);
+
     /**
      * Root element.
      */
@@ -54,6 +54,11 @@ public class GeneralRibTest {
      */
     protected Document ribDoc;
 
+    @Before
+    public void setupLogging() {
+        BasicConfigurator.configure();
+    }
+    
     public Document getDOMFromJAXB(Object jaxbNode) throws JAXBException, ParserConfigurationException, IOException, SAXException {
 
         /* First create the JAXB container */
@@ -92,7 +97,7 @@ public class GeneralRibTest {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Document d = factory.newDocumentBuilder().parse(
-                new InputSource(new StringReader(xmlFragment)));
+                new InputSource(new StringReader(documentFragment)));
 
         // Import the nodes of the new document into doc so that they
         // will be compatible with doc
@@ -124,8 +129,8 @@ public class GeneralRibTest {
         NodeList leftNodes = docLeft.getChildNodes();
         NodeList rightNodes = docRight.getChildNodes();
 
-        Node leftNode = leftNodes.item(2);
-        Node rightNode = rightNodes.item(2);
+        Node leftNode = leftNodes.item(1);
+        Node rightNode = rightNodes.item(1);
 
         return leftNode.isSameNode(rightNode);
         

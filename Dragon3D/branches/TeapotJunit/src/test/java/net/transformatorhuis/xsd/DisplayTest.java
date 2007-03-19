@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+import org.apache.log4j.Logger;
 import net.transformatorhuis.xsd.GeneralRibTest;
 import net.transformatorhuis.cgi.elements.graphicsstate.options.RiDisplay;
 
@@ -18,18 +19,21 @@ import java.io.IOException;
  */
 public class DisplayTest extends GeneralRibTest {
 
-    private String testFragment = "<display name=\"swordMesh.tif\" type=\"file\" mode=\"rgba\" >";
+    private static Logger logger = Logger.getLogger(DisplayTest.class); 
+
+    private String testFragment = "<display name=\"swordMesh.tif\" type=\"file\" mode=\"rgba\" />";
 
     @Test
     public void DisplayTest() throws IOException, SAXException, ParserConfigurationException, JAXBException {
 
         // Create DOM document
         Document docFromString = getDOMDocument(testFragment);
-
+        logger.debug(docFromString.toString());
+        
         // TODO: Validate against XSD
 
         // Create JAXB
-        RiDisplay display = new RiDisplay("swordMesh.tif file rgba");
+        RiDisplay display = new RiDisplay("\"swordMesh.tif\" \"file\" \"rgba\"");
         Document docFromJAXB = getDOMFromJAXB(display.getJAXBNode());
 
         assertTrue(compareDocuments(docFromString, docFromJAXB));
